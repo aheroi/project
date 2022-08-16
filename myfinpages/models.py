@@ -15,9 +15,8 @@ class Income(models.Model):
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=IncomeTypes.choices, default=1)
-    notes = models.CharField(max_length=64, default='-')
+    notes = models.CharField(max_length=64, default='---')
     created_at = models.DateTimeField(auto_now_add=True)
-    # created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         return f'Income {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
