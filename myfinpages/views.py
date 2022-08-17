@@ -12,10 +12,19 @@ from myfinpages.models import Income
 class IncomeListView(ListView):
     model = Income
     paginate_by = 100
+    # template_name = 'myfinpages/income_list.html'
+    # queryset = Income.objects.all()
+    # context_object_name = 'income_list'
+    # extra_context = {'smth add':'Hello', 'smth add2': 'What is?'}
+    # allow_empty = True
 
 
 class IncomeDetailView(DetailView):
     model = Income
+    # template_name = 'myfinpages/income_list.html'
+    # queryset = Income.objects.all()
+    # context_object_name = 'income'
+    # extra_context = {'smth add': 'Hello', 'smth add2': 'What is?'}
 
 
 class IncomeCreateView(CreateView):
@@ -27,7 +36,6 @@ class IncomeCreateView(CreateView):
     def get_success_url(self):
         messages.success(self.request, 'Income added successfully.')
         return reverse('myfinpages:income_list', kwargs={'pk': self.object.pk})
-
 
 
 class IncomeUpdateView(UpdateView):
