@@ -15,7 +15,8 @@ class Income(models.Model):
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=IncomeTypes.choices, default=1)
-    notes = models.CharField(max_length=64, default='---')
+    notes = models.CharField(max_length=255, default='--')
+    comment_to_notes = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
