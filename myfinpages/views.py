@@ -31,17 +31,21 @@ class IncomeCreateView(CreateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
-    # success_url = reverse_lazy('myfinpages:income_list')
 
     def get_success_url(self):
         messages.success(self.request, 'Income added successfully.')
-        return reverse('myfinpages:income_list', kwargs={'pk': self.object.pk})
+        return reverse_lazy('myfinpages:income_list')
 
 
 class IncomeUpdateView(UpdateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
+    # template_name = 'myfinpages/income_form.html'
+    # template_name_suffix = '_update_form'
+    # queryset = Income.objects.all()
+    # context_object_name = 'income'
+    # extra_context = {'smth add': 'Hello', 'smth add2': 'What is?'}
     # success_url = reverse_lazy('myfinpages:income_list')
 
     def get_success_url(self):
@@ -51,6 +55,11 @@ class IncomeUpdateView(UpdateView):
 
 class IncomeDeleteView(DeleteView):
     model = Income
+    # template_name = 'myfinpages/income_confirm_delete.html'
+    # template_name_suffix = '_delete_form'
+    # queryset = Income.objects.all()
+    # context_object_name = 'income'
+    # extra_context = {'smth add': 'Hello', 'smth add2': 'What is?'}
     # success_url = reverse_lazy('myfinpages:income_list')
 
     def get_success_url(self):
