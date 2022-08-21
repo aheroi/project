@@ -6,8 +6,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 # from django.contrib.auth.decorators import login_required       # for login_required
 
-from myfinpages.forms import IncomeForm
-from myfinpages.models import Income
+from myfinpages.forms import IncomeForm, OutcomeForm
+from myfinpages.models import Income, Outcome, Balance
 # Create your views here.
 
 
@@ -32,7 +32,7 @@ class IncomeDetailView(DetailView):
     # template_name = 'myfinpages/income_list.html'
     # queryset = Income.objects.all()
 
-    def get_queryset(self):
+    def get_queryset(self):         # to view only your entries
         user = self.request.user
         return Income.objects.filter(user=user)
     # context_object_name = 'income'
@@ -64,6 +64,10 @@ class IncomeUpdateView(UpdateView):
     # template_name = 'myfinpages/income_form.html'
     # template_name_suffix = '_update_form'
     # queryset = Income.objects.all()
+
+    def get_queryset(self):         # to view only your entries
+        user = self.request.user
+        return Income.objects.filter(user=user)
     # context_object_name = 'income'
     # extra_context = {'smth add': 'Hello', 'smth add2': 'What is?'}
     # success_url = reverse_lazy('myfinpages:income_list')
@@ -79,6 +83,10 @@ class IncomeDeleteView(DeleteView):
     # template_name = 'myfinpages/income_confirm_delete.html'
     # template_name_suffix = '_delete_form'
     # queryset = Income.objects.all()
+
+    def get_queryset(self):         # to view only your entries
+        user = self.request.user
+        return Income.objects.filter(user=user)
     # context_object_name = 'income'
     # extra_context = {'smth add': 'Hello', 'smth add2': 'What is?'}
     # success_url = reverse_lazy('myfinpages:income_list')
