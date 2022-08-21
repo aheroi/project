@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -11,11 +11,12 @@ class Income(models.Model):
         BON = 2, 'BONUS'
         OTH = 3, 'OTHER'
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=IncomeTypes.choices, default=1)
-    notes = models.CharField(max_length=255, default='--')
+    notes = models.CharField(max_length=255, default='---')
     comment_to_notes = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -43,11 +44,13 @@ class Outcome(models.Model):
         OTH = 11, 'OTHER'
         SAV = 12, 'SAVING'
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outcomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=OutcomeTypes.choices, default=1)
     notes = models.CharField(max_length=64, default='-')
+    comment_to_notes = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     # created_at = models.DateTimeField(default=timezone.now())
 
@@ -67,6 +70,7 @@ class Balance(models.Model):
         SAV = 2, 'SAVING'
 
     # _id = str(uuid.uuid4())
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='balances')
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
     # category of entry

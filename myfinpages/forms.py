@@ -25,15 +25,15 @@ class IncomeForm(forms.ModelForm):
     #         'cols': 10  # won't work with crispy
     #     }), help_text='this comment is not required')
     ##
-    # def clean(self):
-    #     cleaned_data = self.cleaned_data
-    #     return cleaned_data
-    #
-    # def is_valid(self):
-    #     is_valid = super().is_valid()
-    #
-    #     return is_valid
-    #
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        return cleaned_data
+
+    def is_valid(self):
+        is_valid = super().is_valid()
+
+        return is_valid
+
     # def save(self, commit=True):
     #     instance = super().save(commit=False)
     #     # do sth here...
