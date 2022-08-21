@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
-import accounts.views
+
 from .forms import CustomUserCreationForm
 # Create your views here.
 

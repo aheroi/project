@@ -1,10 +1,13 @@
+from datetime import date
+from django.db.models import Sum
 from django.contrib import messages
+from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-# from django.contrib.auth.decorators import login_required       # for login_required
+
 
 from myfinpages.forms import IncomeForm, OutcomeForm, BalanceForm
 from myfinpages.models import Income, Outcome, Balance
@@ -152,7 +155,6 @@ class OutcomeUpdateView(UpdateView):
         return reverse('myfinpages:outcome_detail', kwargs={'pk': self.object.pk})
 
 
-
 class OutcomeDeleteView(DeleteView):
     model = Outcome
     template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
@@ -232,3 +234,32 @@ class BalanceDeleteView(DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Balance deleted successfully.')
         return reverse_lazy('myfinpages:balance_list')
+
+
+def current_finances(request):
+    last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
+    if not last_balance:
+        messages.warning(request, 'No current balance have been yet. Please add at least '
+                                  'one current balance entry.')
+        return render(request, 'myfinpages/current_finances.html')
+
+    today = date.today()
+    total_income = Income.objects\
+        .filter(user=request.user, date__gte=last_balance.date, date__lte=today)\
+        .aggregate(total=Sum('value'))['total']
+    total_income = 0 if total_income is None else total_income
+    total_outcome = Outcome.objects\
+        .filter(user=request.user, date__gte=last_balance.date, date__lte=today)\
+        .aggregate(total=Sum('value'))['total']
+    total_outcome = 0 if total_outcome is None else total_outcome
+    context = {
+        'last_balance': last_balance,
+        'estimated_balance': last_balance.value + total_income - total_outcome,
+        'total_income': total_income,
+        'total_outcome': total_outcome,
+    }
+
+    return render(request, 'myfinpages/current_finances.html', context=context)
+
+def finance_history(request):
+    return render(request, 'myfinpages/finance_history.html')
