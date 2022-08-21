@@ -1,7 +1,7 @@
 from django import forms
 from datetime import date
 
-from myfinpages.models import Income, Outcome
+from myfinpages.models import Income, Outcome, Balance
 
 
 class DateInput(forms.DateInput):
@@ -45,6 +45,14 @@ class IncomeForm(forms.ModelForm):
 class OutcomeForm(forms.ModelForm):
     class Meta:
         model = Outcome
+        fields = ['value', 'date', 'type', 'notes', 'comment_to_notes']
+
+    date = forms.DateField(widget=DateInput, initial=date.today())
+
+
+class BalanceForm(forms.ModelForm):
+    class Meta:
+        model = Balance
         fields = ['value', 'date', 'type', 'notes', 'comment_to_notes']
 
     date = forms.DateField(widget=DateInput, initial=date.today())

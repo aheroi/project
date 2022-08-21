@@ -18,6 +18,7 @@ class Income(models.Model):
     type = models.PositiveSmallIntegerField(choices=IncomeTypes.choices, default=1)
     notes = models.CharField(max_length=255, default='---')
     comment_to_notes = models.TextField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -49,8 +50,9 @@ class Outcome(models.Model):
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=OutcomeTypes.choices, default=1)
-    notes = models.CharField(max_length=64, default='-')
+    notes = models.CharField(max_length=64, default='---')
     comment_to_notes = models.TextField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     # created_at = models.DateTimeField(default=timezone.now())
 
@@ -75,7 +77,8 @@ class Balance(models.Model):
     date = models.DateField()
     # category of entry
     type = models.PositiveSmallIntegerField(choices=BalanceTypes.choices, default=1)
-    notes = models.CharField(max_length=64, default='-')
+    notes = models.CharField(max_length=64, default='---')
+    comment_to_notes = models.TextField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     # created_at = models.DateTimeField(default=timezone.now())

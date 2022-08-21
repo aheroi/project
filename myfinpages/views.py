@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 # from django.contrib.auth.decorators import login_required       # for login_required
 
-from myfinpages.forms import IncomeForm, OutcomeForm
+from myfinpages.forms import IncomeForm, OutcomeForm, BalanceForm
 from myfinpages.models import Income, Outcome, Balance
 # Create your views here.
 
@@ -15,7 +15,7 @@ from myfinpages.models import Income, Outcome, Balance
 class IncomeListView(ListView):
     model = Income
     paginate_by = 100
-    template_name = 'myfinpages/income_outcome_list.html'
+    template_name = 'myfinpages/balance_income_outcome_list.html'
     extra_context = {'list_what': 'Income'}
     # queryset = Income.objects.all()
 
@@ -30,7 +30,7 @@ class IncomeListView(ListView):
 # @login_required
 class IncomeDetailView(DetailView):
     model = Income
-    template_name = 'myfinpages/income_outcome_detail.html'
+    template_name = 'myfinpages/balance_income_outcome_detail.html'
     extra_context = {'detail_what': 'Income'}
     # queryset = Income.objects.all()
 
@@ -45,7 +45,7 @@ class IncomeCreateView(CreateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
-    template_name = 'myfinpages/income_outcome_form.html'
+    template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Add Income'}
 
     def form_valid(self, form):
@@ -64,7 +64,7 @@ class IncomeUpdateView(UpdateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
-    template_name = 'myfinpages/income_outcome_form.html'
+    template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Update Income'}
     # template_name_suffix = '_update_form'
     # queryset = Income.objects.all()
@@ -83,7 +83,7 @@ class IncomeUpdateView(UpdateView):
 # @login_required
 class IncomeDeleteView(DeleteView):
     model = Income
-    template_name = 'myfinpages/income_outcome_confirm_delete.html'
+    template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
     extra_context = {'delete_what': 'Income'}
     # template_name_suffix = '_delete_form'
     # queryset = Income.objects.all()
@@ -102,7 +102,7 @@ class IncomeDeleteView(DeleteView):
 class OutcomeListView(ListView):
     model = Outcome
     paginate_by = 100
-    template_name = 'myfinpages/income_outcome_list.html'
+    template_name = 'myfinpages/balance_income_outcome_list.html'
     extra_context = {'list_what': 'Outcome'}
 
     def get_queryset(self):
@@ -112,7 +112,7 @@ class OutcomeListView(ListView):
 
 class OutcomeDetailView(DetailView):
     model = Outcome
-    template_name = 'myfinpages/income_outcome_detail.html'
+    template_name = 'myfinpages/balance_income_outcome_detail.html'
     extra_context = {'detail_what': 'Outcome'}
 
     def get_queryset(self):         # to view only your entries
@@ -123,7 +123,7 @@ class OutcomeDetailView(DetailView):
 class OutcomeCreateView(CreateView):
     model = Outcome
     form_class = OutcomeForm
-    template_name = 'myfinpages/income_outcome_form.html'
+    template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Add Outcome'}
 
     def form_valid(self, form):
@@ -140,7 +140,7 @@ class OutcomeCreateView(CreateView):
 class OutcomeUpdateView(UpdateView):
     model = Outcome
     form_class = OutcomeForm
-    template_name = 'myfinpages/income_outcome_form.html'
+    template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Update Outcome'}
 
     def get_queryset(self):         # to view only your entries
@@ -155,7 +155,7 @@ class OutcomeUpdateView(UpdateView):
 
 class OutcomeDeleteView(DeleteView):
     model = Outcome
-    template_name = 'myfinpages/income_outcome_confirm_delete.html'
+    template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
     extra_context = {'delete_what': 'Outcome'}
 
     def get_queryset(self):         # to view only your entries
@@ -165,3 +165,70 @@ class OutcomeDeleteView(DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'Outcome deleted successfully.')
         return reverse_lazy('myfinpages:outcome_list')
+
+
+class BalanceListView(ListView):
+    model = Balance
+    paginate_by = 100
+    template_name = 'myfinpages/balance_income_outcome_list.html'
+    extra_context = {'list_what': 'Balance'}
+
+    def get_queryset(self):
+        user = self.request.user
+        return Balance.objects.filter(user=user)
+
+
+class BalanceDetailView(DetailView):
+    model = Balance
+    template_name = 'myfinpages/balance_income_outcome_detail.html'
+    extra_context = {'detail_what': 'Balance'}
+
+    def get_queryset(self):         # to view only your entries
+        user = self.request.user
+        return Balance.objects.filter(user=user)
+
+
+class BalanceCreateView(CreateView):
+    model = Balance
+    form_class = BalanceForm
+    template_name = 'myfinpages/balance_income_outcome_form.html'
+    extra_context = {'header': 'Add Balance'}
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(self.request, 'Balance added successfully.')
+        return reverse_lazy('myfinpages:balance_list')
+
+
+class BalanceUpdateView(UpdateView):
+    model = Balance
+    form_class = BalanceForm
+    template_name = 'myfinpages/balance_income_outcome_form.html'
+    extra_context = {'header': 'Update Balance'}
+
+    def get_queryset(self):         # to view only your entries
+        user = self.request.user
+        return Balance.objects.filter(user=user)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Balance updated successfully.')
+        return reverse('myfinpages:balance_detail', kwargs={'pk': self.object.pk})
+
+
+class BalanceDeleteView(DeleteView):
+    model = Balance
+    template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
+    extra_context = {'delete_what': 'Balance'}
+
+    def get_queryset(self):         # to view only your entries
+        user = self.request.user
+        return Balance.objects.filter(user=user)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Balance deleted successfully.')
+        return reverse_lazy('myfinpages:balance_list')
