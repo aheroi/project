@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+
+            <h1>{{ detail_what }} {{ object.pk }}</h1>
+            <ul>
+                <li>Date: {{ object.date|date }}</li>
+                <li>Type: {{ object.get_type_display }}</li>
+                <li>Value: UAH {{ object.value }}</li>
+                <li>Notes: {{ object.notes }}</li>
+            </ul>
+        {% if detail_what == 'Income' %}
+            <a href="{% url 'myfinpages:income_update' object.pk %}">Update</a>
+            <a href="{% url 'myfinpages:income_delete' object.pk %}">Delete</a>
+        {% elif detail_what == 'Outcome' %}
+            <a href="{% url 'myfinpages:outcome_update' object.pk %}">Update</a>
+            <a href="{% url 'myfinpages:outcome_delete' object.pk %}">Delete</a>
+        {% elif detail_what == 'Balance' %}
+            <a href="{% url 'myfinpages:balance_update' object.pk %}">Update</a>
+            <a href="{% url 'myfinpages:balance_delete' object.pk %}">Delete</a>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

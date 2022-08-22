@@ -2,11 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.html
+
 static/vendor/
 /static/
-/templates/
-/templates/website/
+
 
 *.txt
 # C extensions
