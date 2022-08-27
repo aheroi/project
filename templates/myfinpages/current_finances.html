@@ -6,16 +6,17 @@
 {% block content %}
  <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="col-lg-8 mx-auto">Dashboard</h1>
+        <h1 class="col-lg-8 mx-auto">Finances today</h1>
     </div>
 
-    {% if not last_balance %}
-
-        Can't calculate dashboard.
-
-    {% else %}
+{#    {% if not last_balance_value and not last_balance_savings_value %}#}
+{##}
+{#        Nothing to show.#}
+{##}
+{#    {% else %}#}
 
     <!-- Content Row -->
+{#    <div class="row" id="current_finances_label" >#}
     <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->
@@ -25,12 +26,14 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Last Balance Check</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">UAH {{ last_balance.value | intcomma }}</div>
-                            <div class="text-black-50 small">{{ last_balance.date }}</div>
+                                Last Current Balance Check</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">UAH {{ last_balance | intcomma }}</div>
+                            <div class="text-black-50 small">{{ last_balance_date }}</div>
+{#                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="last_balance_value"></div>#}
+{#                            <div class="text-black-50 small" id="last_balance_date"></div>#}
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class='far fa-calendar-check text-gray-300' style='font-size:36px'></i>
                         </div>
                     </div>
                 </div>
@@ -44,11 +47,12 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Estimated balance now</div>
+                                Estimated Current balance now</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">UAH {{ estimated_balance | floatformat:2 | intcomma}}</div>
+{#                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="estimated_balance"></div>#}
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class='fas fa-euro-sign text-gray-300' style='font-size:36px'></i>
                         </div>
                     </div>
                 </div>
@@ -61,17 +65,18 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Estimated Income
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Estimated Current Income
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                                         UAH {{ total_income | floatformat:2 | intcomma }}</div>
+{#                                        id="total_income"></div>#}
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class='fas fa-sign-in-alt text-gray-300' style='font-size:36px'></i>
                         </div>
                     </div>
                 </div>
@@ -85,13 +90,99 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Estimated Outcome</div>
+                                Estimated Current Outcome</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
+{#                                    id="total_outcome"></div>#}
                                 UAH {{ total_outcome | floatformat:2 | intcomma }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-money-bill-wave text-gray-300"></i>
-{#                            <i class="fas fa-comments fa-2x text-gray-300"></i>#}
+                            <i class='fas fa-sign-out-alt text-gray-300' style='font-size:36px'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!-- Content Row -->
+    <div class="row">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Last Savings Balance Check</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">UAH {{ last_balance_savings_value | intcomma }}</div>
+                            <div class="text-black-50 small">{{ last_balance_savings_date }}</div>
+{#                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="last_balance_savings_value"></div>#}
+{#                            <div class="text-black-50 small" id="last_balance_savings_date"></div>  ## UAH in js#}
+                        </div>
+                        <div class="col-auto">
+                            <i class='far fa-calendar-check text-gray-300' style='font-size:36px'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Estimated Savings balance now</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">UAH {{ estimated_balance_savings | floatformat:2 | intcomma}}</div>
+{#                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="estimated_balance_savings_value"></div>#}
+                        </div>
+                        <div class="col-auto">
+                            <i class='fas fa-piggy-bank text-gray-300' style='font-size:36px'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Estimated Savings Income
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+{#                                        id="total_income_savings"></div>#}
+                                        UAH {{ total_income_savings | floatformat:2 | intcomma }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class='fas fa-sign-in-alt text-gray-300' style='font-size:36px'></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Estimated Savings Outcome</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+{#                                id="total_outcome_savings"></div>#}
+                                UAH {{ total_outcome_savings | floatformat:2 | intcomma }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class='fas fa-sign-out-alt text-gray-300' style='font-size:36px'></i>
                         </div>
                     </div>
                 </div>
@@ -99,11 +190,71 @@
         </div>
     </div>
 
-    {% endif %}
+     <div class="row" id="current_outcomes_by_type">
+        <div class="col-12 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Income Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Income by Type</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="income_by_type"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Outcome Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Outcome by Type</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="outcome_by_type"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+{#    {% endif %}#}
 
 {% endblock %}
 
 {% block js %}
-        <!-- Page level plugins -->
-    <script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
+    <!-- Page level plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="{% static 'js/charts.js' %}"></script>
+
 {% endblock %}

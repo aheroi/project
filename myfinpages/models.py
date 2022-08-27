@@ -10,6 +10,7 @@ class Income(models.Model):
         SAL = 1, 'SALARY'
         BON = 2, 'BONUS'
         OTH = 3, 'OTHER'
+        SAV = 4, 'SAVINGS'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)
@@ -43,7 +44,7 @@ class Outcome(models.Model):
         FAM = 9, 'FAMILY'
         GIF = 10, 'GIFT'
         OTH = 11, 'OTHER'
-        SAV = 12, 'SAVING'
+        SAV = 12, 'SAVINGS'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outcomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)
@@ -69,7 +70,7 @@ class Balance(models.Model):
     class BalanceTypes(models.IntegerChoices):
 
         CUR = 1, 'CURRENT'
-        SAV = 2, 'SAVING'
+        SAV = 2, 'SAVINGS'
 
     # _id = str(uuid.uuid4())
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='balances')

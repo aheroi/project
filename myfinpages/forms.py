@@ -31,6 +31,11 @@ class IncomeForm(forms.ModelForm):
 
     def is_valid(self):
         is_valid = super().is_valid()
+        value = self.cleaned_data.get('value')
+
+        if value <= 0:
+            self.add_error('value', 'Value must be a positive number')
+            is_valid = False
 
         return is_valid
 
@@ -49,6 +54,16 @@ class OutcomeForm(forms.ModelForm):
 
     date = forms.DateField(widget=DateInput, initial=date.today())
 
+    def is_valid(self):
+        is_valid = super().is_valid()
+        value = self.cleaned_data.get('value')
+
+        if value <= 0:
+            self.add_error('value', 'Value must be a positive number')
+            is_valid = False
+
+        return is_valid
+
 
 class BalanceForm(forms.ModelForm):
     class Meta:
@@ -56,3 +71,13 @@ class BalanceForm(forms.ModelForm):
         fields = ['value', 'date', 'type', 'notes', 'comment_to_notes']
 
     date = forms.DateField(widget=DateInput, initial=date.today())
+
+    def is_valid(self):
+        is_valid = super().is_valid()
+        value = self.cleaned_data.get('value')
+
+        if value <= 0:
+            self.add_error('value', 'Value must be a positive number')
+            is_valid = False
+
+        return is_valid
