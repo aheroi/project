@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
 
-            <h1>{{ detail_what }} {{ object.pk }}</h1>
+{#            <h1>{{ detail_what }} {{ object.pk }}</h1>#}
+            <h1>{{ detail_what }}</h1>
             <ul>
                 <li>Date: {{ object.date|date }}</li>
                 <li>Type: {{ object.get_type_display }}</li>
