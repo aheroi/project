@@ -32,7 +32,7 @@ urlpatterns = [
     path('balance_update/<pk>', views.BalanceUpdateView.as_view(), name='balance_update'),
     path('balance_delete/<pk>', views.BalanceDeleteView.as_view(), name='balance_delete'),
 
-    path('current_finances/', views.current_finances_label, name='current_finances'),
+    path('current_finances/', views.current_finances, name='current_finances'),
     # path('current_finances_by_type/', views.current_finances_by_type, name='current_finances_by_type'),
     path('current_incomes_by_type/', views.current_incomes_by_type, name='current_incomes_by_type'),
     path('current_outcomes_by_type/', views.current_outcomes_by_type, name='current_outcomes_by_type'),

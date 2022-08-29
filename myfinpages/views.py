@@ -271,7 +271,7 @@ class BalanceDeleteView(DeleteView):
 #     return render(request, 'myfinpages/current_finances.html')
 
 
-def current_finances_label(request):
+def current_finances(request):
     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
     last_balance_savings = Balance.objects.filter(user=request.user, type=2).order_by('-date').first()
     if not last_balance:
