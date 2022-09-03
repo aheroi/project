@@ -15,7 +15,8 @@
         <div class="col-lg-8 mx-auto">
 
             {% if object_list %}
-                <table id="table-view" class="table">
+{#                <table id="table-view" class="table">#}
+                <table id="table-view" class="display" style="width:100%">
                     <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -46,6 +47,12 @@
                         </tr>
                     {% endfor %}
                     </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4" style="text-align:right">Total:</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
                 </table>
             {% else %}
                 Nothing to show
@@ -64,20 +71,42 @@
 
 
     <script>
-        $(document).ready(function () {
-            $('#table-view').DataTable(
-                {
-                    order: [[0, 'desc']],
-                    {#columns: [#}
-                    {#    {name: "Date", orderable: true},#}
-                    {#    {name: "Type", orderable: true},#}
-                    {#    {name: "Value", orderable: true},#}
-                    {#    {name: "Notes", orderable: true},#}
-                    {#    {name: "Details", orderable: false},#}
-                    {#]#}
-                }
-            )
-        })
+
+$(document).ready(function () {
+    $('#table-view').DataTable({
+
+        footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+            };
+
+            // Total over all pages
+            {#total = api#}
+            {#    .column(2)#}
+            {#    .data()#}
+            {#    .reduce(function (a, b) {#}
+            {#        return intVal(a) + intVal(b);#}
+            {#    }, 0);#}
+
+            // Total over this page
+            pageTotal = api
+                .column(2, { page: 'current' })
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            // Update footer
+            {#$(api.column(2).footer()).html('UAH' + ' ' + pageTotal.toFixed(2) + ' ( UAH' + ' ' + total.toFixed(2) + ' total pages)');#}
+            $(api.column(2).footer()).html('UAH' + ' ' + pageTotal.toFixed(2));
+
+        },
+    });
+});
+
 
     </script>
 {% endblock %}

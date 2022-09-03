@@ -23,7 +23,7 @@ class Income(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Income {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Income {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'incomes'
@@ -58,7 +58,7 @@ class Outcome(models.Model):
     # created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
-        return f'Outcome {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Outcome {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'outcomes'
@@ -85,7 +85,7 @@ class Balance(models.Model):
     # created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
-        return f'Balance {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Balance {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'balances'
