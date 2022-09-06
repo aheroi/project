@@ -26,28 +26,49 @@
 
     <body>
         <div class="d-flex" id="wrapper">
-            <!-- Sidebar-->
-            <div class="border-end bg-white" id="sidebar-wrapper">
-{#                <a class="sidebar-heading border-bottom bg-light" href="{% url 'website:website_index' %}">MyFinPages</a>#}
-                <div class="sidebar-heading border-bottom bg-light">MyFinPages</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-info p-2">Dashboard</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:current_finances' %}">Current Finances</a>
-{#                    <a class="list-group-item list-group-item-action list-group-item-white p-2" href="{% url 'myfinpages:finance_history' %}">Finance History</a>#}
+
+                <!-- Sidebar-->
+                <div class="border-end bg-white" id="sidebar-wrapper">
+    {#                <a class="sidebar-heading border-bottom bg-light" href="{% url 'website:website_index' %}">MyFinPages</a>#}
+                    <div class="sidebar-heading border-bottom bg-light">MyFinPages</div>
+                    <div class="list-group list-group-flush">
+                    {% if request.user.is_authenticated %}
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">Dashboard</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:current_finances' %}">Current Finances</a>
+    {#                    <a class="list-group-item list-group-item-action list-group-item-white p-2" href="{% url 'myfinpages:finance_history' %}">Finance History</a>#}
 
 
-                    <a class="list-group-item list-group-item-action list-group-item-info p-2">Update finances</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:income_create' %}">Add Income</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:outcome_create' %}">Add Outcome</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:balance_create' %}">Add Balance</a>
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">Update finances</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:income_create' %}">Add Income</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:outcome_create' %}">Add Outcome</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:balance_create' %}">Add Balance</a>
 
-                    <a class="list-group-item list-group-item-action list-group-item-info p-2">View finances</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:income_list' %}">List Income</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:outcome_list' %}">List Outcome</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:balance_list' %}">List Balance</a>
-{#                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>#}
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">View finances</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:income_list' %}">List Income</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:outcome_list' %}">List Outcome</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:balance_list' %}">List Balance</a>
+    {#                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>#}
+                    {% else %}
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">Dashboard</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">Current Finances</a>
+    {#                    <a class="list-group-item list-group-item-action list-group-item-white p-2" href="{% url 'myfinpages:finance_history' %}">Finance History</a>#}
+
+
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">Update finances</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">Add Income</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">Add Outcome</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">Add Balance</a>
+
+                        <a class="list-group-item list-group-item-action list-group-item-info p-2">View finances</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">List Income</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">List Outcome</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'accounts:login' %}">List Balance</a>
+                    {% endif %}
+                    </div>
                 </div>
-            </div>
+{#            {% else %}#}
+{#                <a href="{% url 'accounts:login' %}"></a>#}
+
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
