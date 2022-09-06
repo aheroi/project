@@ -3,19 +3,18 @@ from django.db.models import Sum
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-
+# from django.contrib.auth.decorators import login_required
 
 from myfinpages.forms import IncomeForm, OutcomeForm, BalanceForm
 from myfinpages.models import Income, Outcome, Balance
 # Create your views here.
 
 
-# @login_required
+# @login_required(login_url='/accounts/login/')
 class IncomeListView(ListView):
     model = Income
     paginate_by = 100
@@ -270,7 +269,7 @@ class BalanceDeleteView(DeleteView):
 #                                   'one current balance entry.')
 #     return render(request, 'myfinpages/current_finances.html')
 
-
+# @login_required
 def current_finances(request):
     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
     last_balance_savings = Balance.objects.filter(user=request.user, type=2).order_by('-date').first()
@@ -379,6 +378,7 @@ def current_finances(request):
 # #
 #
 #
+
 def current_incomes_by_type(request):
     today = date.today()
     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()

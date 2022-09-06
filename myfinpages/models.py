@@ -23,7 +23,7 @@ class Income(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Income {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Income {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'incomes'
@@ -58,7 +58,7 @@ class Outcome(models.Model):
     # created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
-        return f'Outcome {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Outcome {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'outcomes'
@@ -72,7 +72,6 @@ class Balance(models.Model):
         CUR = 1, 'CURRENT'
         SAV = 2, 'SAVINGS'
 
-    # _id = str(uuid.uuid4())
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='balances')
     value = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
@@ -85,7 +84,7 @@ class Balance(models.Model):
     # created_at = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
-        return f'Balance {self.pk} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
+        return f'Balance {self.id} - {self.type} - {self.date.strftime("%Y/%m/%d")}'
 
     class Meta:
         verbose_name_plural = 'balances'
