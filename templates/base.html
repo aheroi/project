@@ -27,10 +27,16 @@
     <body>
         <div class="d-flex" id="wrapper">
 
-                <!-- Sidebar-->
+                <!-- Sidebar - Brand-->
                 <div class="border-end bg-white" id="sidebar-wrapper">
-    {#                <a class="sidebar-heading border-bottom bg-light" href="{% url 'website:website_index' %}">MyFinPages</a>#}
-                    <div class="sidebar-heading border-bottom bg-light">MyFinPages</div>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'website:website_index' %}">
+                        <div class="sidebar-brand-icon rotate-n-15">
+                            <i class="fas fa-laugh-wink"></i>
+                        </div>
+                        <div class="sidebar-heading border-bottom bg-white">MyFinPages</div>
+                    </a>
+
+{#                    <div class="sidebar-heading border-bottom bg-light">MyFinPages</div>#}
                     <div class="list-group list-group-flush">
                     {% if request.user.is_authenticated %}
                         <a class="list-group-item list-group-item-action list-group-item-info p-2">Dashboard</a>
@@ -72,7 +78,7 @@
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
                     <div class="container-fluid">
 {#                        <button class="btn btn-primary btn-sm" id="sidebarToggle">Toggle Menu</button>#}
 {#                        <button class="btn btn-primary" id="sidebarToggle">Toggle Menu</button>#}
