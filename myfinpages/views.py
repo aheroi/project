@@ -1,13 +1,14 @@
 from datetime import date
 from django.db.models import Sum
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required       # only for current_finances
 
 from myfinpages.forms import IncomeForm, OutcomeForm, BalanceForm
 from myfinpages.models import Income, Outcome, Balance
@@ -15,7 +16,7 @@ from myfinpages.models import Income, Outcome, Balance
 
 
 # @login_required(login_url='/accounts/login/')
-class IncomeListView(ListView):
+class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
     paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
@@ -31,7 +32,7 @@ class IncomeListView(ListView):
 
 
 # @login_required
-class IncomeDetailView(DetailView):
+class IncomeDetailView(LoginRequiredMixin, DetailView):
     model = Income
     template_name = 'myfinpages/balance_income_outcome_detail.html'
     extra_context = {'detail_what': 'Income'}
@@ -44,7 +45,7 @@ class IncomeDetailView(DetailView):
 
 
 # @login_required
-class IncomeCreateView(CreateView):
+class IncomeCreateView(LoginRequiredMixin, CreateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
@@ -63,7 +64,7 @@ class IncomeCreateView(CreateView):
 
 
 # @login_required
-class IncomeUpdateView(UpdateView):
+class IncomeUpdateView(LoginRequiredMixin, UpdateView):
     model = Income
     # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
@@ -84,7 +85,7 @@ class IncomeUpdateView(UpdateView):
 
 
 # @login_required
-class IncomeDeleteView(DeleteView):
+class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Income
     template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
     extra_context = {'delete_what': 'Income'}
@@ -102,7 +103,7 @@ class IncomeDeleteView(DeleteView):
         return reverse_lazy('myfinpages:income_list')
 
 
-class OutcomeListView(ListView):
+class OutcomeListView(LoginRequiredMixin, ListView):
     model = Outcome
     paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
@@ -113,7 +114,7 @@ class OutcomeListView(ListView):
         return Outcome.objects.filter(user=user)
 
 
-class OutcomeDetailView(DetailView):
+class OutcomeDetailView(LoginRequiredMixin, DetailView):
     model = Outcome
     template_name = 'myfinpages/balance_income_outcome_detail.html'
     extra_context = {'detail_what': 'Outcome'}
@@ -123,7 +124,7 @@ class OutcomeDetailView(DetailView):
         return Outcome.objects.filter(user=user)
 
 
-class OutcomeCreateView(CreateView):
+class OutcomeCreateView(LoginRequiredMixin, CreateView):
     model = Outcome
     form_class = OutcomeForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
@@ -140,7 +141,7 @@ class OutcomeCreateView(CreateView):
         return reverse_lazy('myfinpages:outcome_list')
 
 
-class OutcomeUpdateView(UpdateView):
+class OutcomeUpdateView(LoginRequiredMixin, UpdateView):
     model = Outcome
     form_class = OutcomeForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
@@ -155,7 +156,7 @@ class OutcomeUpdateView(UpdateView):
         return reverse('myfinpages:outcome_detail', kwargs={'pk': self.object.pk})
 
 
-class OutcomeDeleteView(DeleteView):
+class OutcomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Outcome
     template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
     extra_context = {'delete_what': 'Outcome'}
@@ -169,7 +170,7 @@ class OutcomeDeleteView(DeleteView):
         return reverse_lazy('myfinpages:outcome_list')
 
 
-class BalanceListView(ListView):
+class BalanceListView(LoginRequiredMixin, ListView):
     model = Balance
     paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
@@ -180,7 +181,7 @@ class BalanceListView(ListView):
         return Balance.objects.filter(user=user)
 
 
-class BalanceDetailView(DetailView):
+class BalanceDetailView(LoginRequiredMixin, DetailView):
     model = Balance
     template_name = 'myfinpages/balance_income_outcome_detail.html'
     extra_context = {'detail_what': 'Balance'}
@@ -190,7 +191,7 @@ class BalanceDetailView(DetailView):
         return Balance.objects.filter(user=user)
 
 
-class BalanceCreateView(CreateView):
+class BalanceCreateView(LoginRequiredMixin, CreateView):
     model = Balance
     form_class = BalanceForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
@@ -207,7 +208,7 @@ class BalanceCreateView(CreateView):
         return reverse_lazy('myfinpages:balance_list')
 
 
-class BalanceUpdateView(UpdateView):
+class BalanceUpdateView(LoginRequiredMixin, UpdateView):
     model = Balance
     form_class = BalanceForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
@@ -222,7 +223,7 @@ class BalanceUpdateView(UpdateView):
         return reverse('myfinpages:balance_detail', kwargs={'pk': self.object.pk})
 
 
-class BalanceDeleteView(DeleteView):
+class BalanceDeleteView(LoginRequiredMixin, DeleteView):
     model = Balance
     template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'
     extra_context = {'delete_what': 'Balance'}
@@ -269,7 +270,7 @@ class BalanceDeleteView(DeleteView):
 #                                   'one current balance entry.')
 #     return render(request, 'myfinpages/current_finances.html')
 
-# @login_required
+@login_required(login_url='/accounts/login/')
 def current_finances(request):
     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
     last_balance_savings = Balance.objects.filter(user=request.user, type=2).order_by('-date').first()
