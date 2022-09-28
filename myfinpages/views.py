@@ -15,7 +15,6 @@ from myfinpages.models import Income, Outcome, Balance
 # Create your views here.
 
 
-# @login_required(login_url='/accounts/login/')
 class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
     paginate_by = 100
@@ -27,11 +26,9 @@ class IncomeListView(LoginRequiredMixin, ListView):
         user = self.request.user
         return Income.objects.filter(user=user)
     # context_object_name = 'income_list'
-
     # allow_empty = True
 
 
-# @login_required
 class IncomeDetailView(LoginRequiredMixin, DetailView):
     model = Income
     template_name = 'myfinpages/balance_income_outcome_detail.html'
@@ -44,10 +41,8 @@ class IncomeDetailView(LoginRequiredMixin, DetailView):
     # context_object_name = 'income'
 
 
-# @login_required
 class IncomeCreateView(LoginRequiredMixin, CreateView):
     model = Income
-    # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Add Income'}
@@ -63,10 +58,8 @@ class IncomeCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('myfinpages:income_list')
 
 
-# @login_required
 class IncomeUpdateView(LoginRequiredMixin, UpdateView):
     model = Income
-    # fields = ['value', 'date', 'type', 'notes'] # moved to forms.py
     form_class = IncomeForm
     template_name = 'myfinpages/balance_income_outcome_form.html'
     extra_context = {'header': 'Update Income'}
@@ -84,7 +77,6 @@ class IncomeUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('myfinpages:income_detail', kwargs={'pk': self.object.pk})
 
 
-# @login_required
 class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Income
     template_name = 'myfinpages/balance_income_outcome_confirm_delete.html'

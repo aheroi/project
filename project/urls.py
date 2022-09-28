@@ -24,4 +24,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('myfinpages/', include('myfinpages.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('accounts/', include('allauth.urls')),
+
 ]

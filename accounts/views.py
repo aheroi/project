@@ -1,8 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-
 
 from .forms import CustomUserCreationForm
 # Create your views here.
@@ -45,3 +47,11 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Logged out successfully')
     return redirect('accounts:login')
+
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    context_object_name = "current_user"
+    template_name = 'accounts/profile.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user

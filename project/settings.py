@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'debug_toolbar',
 
+    # for Google
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     # apps by default
     'django.contrib.admin',
     'django.contrib.auth',
