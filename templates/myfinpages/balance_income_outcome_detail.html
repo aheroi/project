@@ -13,14 +13,20 @@
                 <li>Notes: {{ object.notes }}</li>
             </ul>
         {% if detail_what == 'Income' %}
-            <a href="{% url 'myfinpages:income_update' object.pk %}">Update</a>
-            <a href="{% url 'myfinpages:income_delete' object.pk %}">Delete</a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:income_update' object.pk %}"><i class="fa fa-2x fa-pencil-alt"></i></a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:income_delete' object.pk %}"><i class="fa fa-2x fa-trash-alt"></i></a>
+{#            <a href="{% url 'myfinpages:income_update' object.pk %}">Update</a>#}
+{#            <a href="{% url 'myfinpages:income_delete' object.pk %}">Delete</a>#}
         {% elif detail_what == 'Outcome' %}
-            <a href="{% url 'myfinpages:outcome_update' object.pk %}">Update</a>
-            <a href="{% url 'myfinpages:outcome_delete' object.pk %}">Delete</a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:outcome_update' object.pk %}"><i class="fa fa-2x fa-pencil-alt"></i></a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:outcome_delete' object.pk %}"><i class="fa fa-2x fa-trash-alt"></i></a>
+{#            <a href="{% url 'myfinpages:outcome_update' object.pk %}">Update</a>#}
+{#            <a href="{% url 'myfinpages:outcome_delete' object.pk %}">Delete</a>#}
         {% elif detail_what == 'Balance' %}
-            <a href="{% url 'myfinpages:balance_update' object.pk %}">Update</a>
-            <a href="{% url 'myfinpages:balance_delete' object.pk %}">Delete</a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:balance_update' object.pk %}"><i class="fa fa-2x fa-pencil-alt"></i></a>
+            <a type="button" class="btn btn-space btn-link" href="{% url 'myfinpages:balance_delete' object.pk %}"><i class="fa fa-2x fa-trash-alt"></i></a>
+{#            <a href="{% url 'myfinpages:balance_update' object.pk %}">Update</a>#}
+{#            <a href="{% url 'myfinpages:balance_delete' object.pk %}">Delete</a>#}
         {% endif %}
         </div>
     </div>
