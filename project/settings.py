@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django.contrib.humanize',
     'debug_toolbar',
+    "bootstrap4",
 
     # for Google
     'django.contrib.sites',
