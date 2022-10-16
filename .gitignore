@@ -8,6 +8,8 @@ static/vendor/
 
 
 *.txt
+!requirements.txt
+!requirements.*.txt
 # C extensions
 *.so
 

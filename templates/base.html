@@ -31,7 +31,7 @@
 
             <!-- Page content wrapper-->
 
-            <div id="page-content-wrapper">
+            <div class="d-flex flex-column h-100" id="page-content-wrapper">
                 <!-- Top navigation-->
                 {% include 'website/partials/navbar.html' %}
 
@@ -39,7 +39,7 @@
             <!-- Page content-->
                 {% block content %}{% endblock content%}
             <!-- Footer -->
-            {% include 'website/partials/footer.html' %}
+                {% include 'website/partials/footer.html' %}
             </div>
         </div>
 
