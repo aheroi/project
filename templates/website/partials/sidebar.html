@@ -8,12 +8,14 @@
         <div class="sidebar-heading border-bottom bg-white">MyFinPages</div>
     </a>
 
-    <div class="list-group list-group-flush">
+{#    <div class="list-group list-group-flush">#}
+    <div class="nav-tabs">
         <a class="list-group-item list-group-item-action list-group-item-info p-2">Dashboard</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:current_finances' %}">Current Finances</a>
 
         <a class="list-group-item list-group-item-action list-group-item-info p-2">Update finances</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-2 " href="{% url 'myfinpages:income_create' %}">Add Income</a>
+{#        <a class="list-group-item list-group-item-action list-group-item-light p-2 {% if active_tab == 'Add Income' %}active{% endif %}" href="{% url 'myfinpages:income_create' %}">Add Income</a>#}
         <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:outcome_create' %}">Add Outcome</a>
         <a class="list-group-item list-group-item-action list-group-item-light p-2" href="{% url 'myfinpages:balance_create' %}">Add Balance</a>
 

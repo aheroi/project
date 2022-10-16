@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% load static %}
 {% load crispy_forms_tags %}
 <!DOCTYPE html>
@@ -19,18 +20,27 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method="POST">
-                                {% csrf_token %}
-                                {{ form|crispy }}
+{#                            <form class="user" method="POST">#}
+{#                                {% csrf_token %}#}
+{#                                {{ form|crispy }}#}
+
+                            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                              {% csrf_token %}
+
+                              {% bootstrap_form form layout="floating" %}
+
+                              {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                              {% endif %}
 
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
 {#                               <a href="{% url 'socialaccount_signup' %}" class="btn btn-google btn-user btn-block">#}
 {#                               <a href="{% url 'google_login' %}" class="btn btn-google btn-user btn-block">#}
-                                <a href="/accounts/google/login/" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
+{#                                <a href="/accounts/google/login/" class="btn btn-google btn-user btn-block">#}
+{#                                    <i class="fab fa-google fa-fw"></i> Register with Google#}
+{#                                </a>#}
                             </form>
                             <hr>
 {#                            <div class="text-center">#}
