@@ -132,7 +132,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 
 ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
