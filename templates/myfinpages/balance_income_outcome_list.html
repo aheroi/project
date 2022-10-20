@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
     <div class="row">
@@ -16,7 +17,8 @@
 
             {% if object_list %}
 {#                <table id="table-view" class="table">#}
-                <table id="table-view" class="display" style="width:100%">
+{#                <table id="table-view" class="display" style="width:100%">#}
+                <table id="table-view" class="table table-hover" style="width:100%">
                     <thead>
                     <tr>
                         <th scope="col">Date</th>
@@ -29,9 +31,9 @@
                     <tbody id="table-body">
                     {% for object in object_list %}
                         <tr>
-                            <td>{{ object.date|date:"Y/m/d" }}</td>
+                            <td>{{ object.date|date:"Y-m-d" }}</td>
                             <td>{{ object.get_type_display }}</td>
-                            <td>{{ object.value }}</td>
+                            <td>{{ object.value| intcomma }}</td>
                             <td>{{ object.notes }}</td>
                             <td>
                                 {% if list_what == 'Income' %}

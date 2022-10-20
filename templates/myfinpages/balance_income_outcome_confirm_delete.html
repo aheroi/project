@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
 
 {% block content %}
     <div class="row">
@@ -8,10 +10,17 @@
             <h1>{{ delete_what }}</h1>
 
             <form method="post">{% csrf_token %}
-                <p>Are you sure you want to delete "{{ object.date }} -- {{ object.get_type_display }}
-                    -- UAH {{ object.value }} -- {{ object.notes }}"?</p>
-                {{ form }}
-                <input type="submit" value="Confirm">
+                <p><strong>{{ user.username | title }}</strong>, are you sure you want to <strong>delete: </strong></p>
+                <ul>
+                    <li>Date: {{ object.date|date }}</li>
+                    <li>Type: {{ object.get_type_display }}</li>
+                    <li>Value: UAH {{ object.value| intcomma }}</li>
+                    <li>Notes: {{ object.notes }}</li>
+                </ul>
+{#                <input type="submit" value="Confirm">#}
+                <button class="btn btn-primary" type="submit">
+                    Confirm
+                </button>
             </form>
         </div>
     </div>

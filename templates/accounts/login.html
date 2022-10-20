@@ -19,10 +19,13 @@
                                 <form class="user" method="POST">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control form-control-user"
-                                            id="email" name="username" aria-describedby="emailHelp"
-                                            placeholder="Enter Email Address...">
+{#                                        <label for="email">Email</label>#}
+{#                                        <input type="email" class="form-control form-control-user"#}
+{#                                            id="email" name="username" aria-describedby="emailHelp"#}
+{#                                            placeholder="Enter Email Address...">        #}
+                                        <label for="username">Username</label>
+                                        <input class="form-control form-control-user"
+                                            id="username" name="username" placeholder="Enter Username...">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>

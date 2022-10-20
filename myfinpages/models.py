@@ -11,6 +11,7 @@ class Income(models.Model):
         BON = 2, 'BONUS'
         OTH = 3, 'OTHER'
         SAV = 4, 'SAVINGS'
+        GIF = 5, 'GIFT'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)
@@ -39,12 +40,13 @@ class Outcome(models.Model):
         STU = 4, 'STUDY'
         SPO = 5, 'SPORT'
         FUN = 6, 'FUN'
-        HEA = 7, 'HEALTHY'
+        HEA = 7, 'HEALTH'
         HOM = 8, 'HOME'
         FAM = 9, 'FAMILY'
         GIF = 10, 'GIFT'
         OTH = 11, 'OTHER'
         SAV = 12, 'SAVINGS'
+        TRA = 13, 'TRAVEL'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='outcomes')
     value = models.DecimalField(max_digits=10, decimal_places=2)

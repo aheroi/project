@@ -19,10 +19,7 @@ class IncomeForm(forms.ModelForm):
     comment_to_notes = forms.CharField(required=False, widget=forms.Textarea(
         attrs={
             'placeholder': 'you can give some comment',
-            'class': 'some-class-for-html',
-            'id': 'some-id-for-html',
-            'rows': 2,
-            # 'cols': 1
+            'rows': 1,
         }), help_text='this comment is not required')
     ##
     def clean(self):
@@ -56,10 +53,7 @@ class OutcomeForm(forms.ModelForm):
     comment_to_notes = forms.CharField(required=False, widget=forms.Textarea(
         attrs={
             'placeholder': 'you can give some comment',
-            'class': 'some-class-for-html',
-            'id': 'some-id-for-html',
-            'rows': 2,
-            # 'cols': 1
+            'rows': 1,
         }), help_text='this comment is not required')
 
     def is_valid(self):
@@ -82,10 +76,7 @@ class BalanceForm(forms.ModelForm):
     comment_to_notes = forms.CharField(required=False, widget=forms.Textarea(
         attrs={
             'placeholder': 'you can give some comment',
-            'class': 'some-class-for-html',
-            'id': 'some-id-for-html',
-            'rows': 2,
-            # 'cols': 1
+            'rows': 1,
         }), help_text='this comment is not required')
 
     def is_valid(self):
