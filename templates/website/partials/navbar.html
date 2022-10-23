@@ -12,9 +12,15 @@
                             <img class="rounded-circle" src="{% static 'img/undraw_profile_3.svg' %}" width="41" height="41">
 {#                                <i class="fas fa-smile-wink" style="font-size:36px;color:blue"></i>#}
                         {% else %}
-                            <i class="fa fa-bars text-gray-600" style="font-size:24px"></i>
+{#                            <i class="fa fa-bars text-gray-600 py-2" style="font-size:24px"></i>#}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-6 h-6" width="41" height="41" color="#4e73df">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5
+                                 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12
+                                  9l-3 3m0 0l3 3m-3-3h12.75"></path>
+                            </svg>
+
                         {% endif %}</a>
-{#                                <i class="fas fa-smile-wink" style="font-size:36px;color:blue"></i>{% else %}<i class="fa fa-bars text-gray-600" style="font-size:24px"></i>#}
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         {% if user.is_authenticated %}

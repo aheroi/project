@@ -1,7 +1,8 @@
 {% load static  %}
 
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+{#<html lang="en" class="h-100">#}
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=t">
@@ -23,8 +24,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
     </head>
 
-
-    <body class="d-flex flex-column h-100">
+{##}
+{#    <body class="d-flex flex-column h-100">#}
+{#        <div class="d-flex px-4" id="wrapper">#}
+    <body class="d-flex flex-column">
         <div class="d-flex px-4" id="wrapper">
             <!-- Sidebar -->
             {% include 'website/partials/sidebar.html' %}
