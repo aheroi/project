@@ -34,3 +34,9 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             instance.save()
         return instance
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name"]

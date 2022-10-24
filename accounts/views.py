@@ -1,12 +1,14 @@
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
+from django.views.generic import DetailView, UpdateView
 from django.utils.safestring import mark_safe
+from django.urls import reverse_lazy
 
-from .forms import CustomUserCreationForm
+
+from .forms import CustomUserCreationForm, UserEditForm
 # Create your views here.
 
 
@@ -53,6 +55,16 @@ def logout_view(request):
 class ProfileView(LoginRequiredMixin, DetailView):
     context_object_name = "current_user"
     template_name = 'accounts/profile.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class ProfileEditView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserEditForm
+    template_name = 'accounts/profile_edit.html'
+    success_url = reverse_lazy('accounts:profile')
 
     def get_object(self, queryset=None):
         return self.request.user

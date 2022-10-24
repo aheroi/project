@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block title %}{% trans "Edit profile" %}{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+      <h1>
+        {{ user.username | title }}
+        <small class="h4 text-muted">{% trans "edit profile" %}</small>
+      </h1>
+    </div>
+</div>
+
+  {% include 'accounts/partials/navigation.html' with active_tab="edit" %}
+
+  <div class="row justify-content-center">
+    <div class="col col-md-4">
+      <form action="." method="post">
+        {% csrf_token %}
+
+        {% bootstrap_form form layout="floating" %}
+        {% bootstrap_button button_type="submit" content="Update profile" %}
+      </form>
+    </div>
+  </div>
+{% endblock content %}
