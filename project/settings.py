@@ -85,7 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'website.views.get_page_path',
+                'misc.context_processors.add_context',
             ],
         },
     },
