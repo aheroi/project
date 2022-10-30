@@ -199,7 +199,7 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = env("EMAIL_PORT")
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 LOGGING = {
     'version': 1,

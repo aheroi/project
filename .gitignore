@@ -218,4 +218,7 @@ node_modules
 
 .svg
 .png
-jepg
+jepg!/static/
+static/vendor/
+/static/
+/venv
