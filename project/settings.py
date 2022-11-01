@@ -204,7 +204,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 #
 # EMAIL_PORT = env("EMAIL_PORT")
 
-
 django_heroku.settings(locals())
 
 LOGGING = {
