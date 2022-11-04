@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-import django_heroku
 import os
 
 from pathlib import Path
@@ -33,11 +32,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'my-f-pages.herokuapp.com'
-]
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -73,7 +68,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -100,14 +95,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     "default": env.db(),
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -130,7 +123,6 @@ else:
         },
     ]
 
-
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
@@ -141,7 +133,6 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 
 ACCOUNT_EMAIL_VERIFICATION = "optional"
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -162,17 +153,17 @@ LANGUAGES = [
     ("uk", "Ukrainian"),
 ]
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / "public" / "static"
-# STATIC_ROOT = BASE_DIR / 'media'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / 'project' / 'static',
+    # BASE_DIR / 'static',
 ]
 
 # for saving media
@@ -196,15 +187,13 @@ INTERNAL_IPS = ['127.0.0.1']
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# EMAIL_HOST = env("EMAIL_HOST")
-#
-# EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-#
-# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-#
-# EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_HOST = env("EMAIL_HOST")
 
-django_heroku.settings(locals())
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+
+EMAIL_PORT = env("EMAIL_PORT")
 
 LOGGING = {
     'version': 1,
