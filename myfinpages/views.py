@@ -17,7 +17,7 @@ from myfinpages.models import Income, Outcome, Balance
 
 class IncomeListView(LoginRequiredMixin, ListView):
     model = Income
-    paginate_by = 100
+    # paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
     extra_context = {'list_what': 'Income'}
     # queryset = Income.objects.all()
@@ -97,7 +97,7 @@ class IncomeDeleteView(LoginRequiredMixin, DeleteView):
 
 class OutcomeListView(LoginRequiredMixin, ListView):
     model = Outcome
-    paginate_by = 100
+    # paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
     extra_context = {'list_what': 'Outcome'}
 
@@ -164,7 +164,7 @@ class OutcomeDeleteView(LoginRequiredMixin, DeleteView):
 
 class BalanceListView(LoginRequiredMixin, ListView):
     model = Balance
-    paginate_by = 100
+    # paginate_by = 100
     template_name = 'myfinpages/balance_income_outcome_list.html'
     extra_context = {'list_what': 'Balance'}
 
@@ -228,40 +228,6 @@ class BalanceDeleteView(LoginRequiredMixin, DeleteView):
         messages.success(self.request, 'Balance deleted successfully.')
         return reverse_lazy('myfinpages:balance_list')
 
-
-# def current_finances(request):
-#     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
-#     if not last_balance:
-#         messages.warning(request, 'No current balance have been yet. Please add at least '
-#                                   'one current balance entry.')
-#         return render(request, 'myfinpages/current_finances.html')
-#
-#     today = date.today()
-#     total_income = Income.objects\
-#         .filter(user=request.user, date__gte=last_balance.date, date__lte=today)\
-#         .aggregate(total=Sum('value'))['total']
-#     total_income = 0 if total_income is None else total_income
-#     total_outcome = Outcome.objects\
-#         .filter(user=request.user, date__gte=last_balance.date, date__lte=today)\
-#         .aggregate(total=Sum('value'))['total']
-#     total_outcome = 0 if total_outcome is None else total_outcome
-#     context = {
-#         'last_balance': last_balance,
-#         'estimated_balance': last_balance.value + total_income - total_outcome,
-#         'total_income': total_income,
-#         'total_outcome': total_outcome,
-#     }
-#
-#     return render(request, 'myfinpages/current_finances.html', context=context)
-
-
-# def current_finances(request):
-#     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
-#     if not last_balance:
-#         messages.warning(request, 'No current balance have been yet. Please add at least '
-#                                   'one current balance entry.')
-#     return render(request, 'myfinpages/current_finances.html')
-
 @login_required(login_url='/accounts/login/')
 def current_finances(request):
     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
@@ -290,18 +256,6 @@ def current_finances(request):
         .aggregate(total=Sum('value'))['total']
     total_outcome_savings = 0 if total_outcome_savings is None else total_outcome_savings
 
-    # return JsonResponse({
-    #     'last_balance_value': last_balance.value,
-    #     'last_balance_date': last_balance.date,
-    #     'estimated_balance': last_balance.value + total_income - total_outcome,
-    #     'total_income': total_income,
-    #     'total_outcome': total_outcome,
-    #     'last_balance_savings_value': last_balance_savings.value,
-    #     'last_balance_savings_date': last_balance_savings.date,
-    #     'estimated_balance_savings_value': last_balance_savings.value + total_income_savings - total_outcome_savings,
-    #     'total_income_savings': total_income_savings,
-    #     'total_outcome_savings': total_outcome_savings,
-    # })
     context = {
         'last_balance_date': last_balance.date,
         'last_balance_value': last_balance.value,
@@ -317,60 +271,6 @@ def current_finances(request):
 
     return render(request, 'myfinpages/current_finances.html', context=context)
 
-
-# def current_finances_by_type(request):
-#     today = date.today()
-#     last_balance = Balance.objects.filter(user=request.user, type=1).order_by('-date').first()
-#     # last_balance_savings = Balance.objects.filter(user=request.user, type=2).order_by('-date').first()
-#
-#     if not last_balance:
-#         return JsonResponse({'error': 'Please add at least one balance entry.'})
-#
-#     labels_income = []
-#     data_income = []
-#     labels_outcome = []
-#     data_outcome = []
-#
-#     for income_type in Income.IncomeTypes.choices:
-#         labels_income.append(income_type[1])
-#         total_income = Income.objects \
-#             .filter(user=request.user, date__gte=last_balance.date, type=income_type[0], date__lte=today) \
-#             .aggregate(total=Sum('value'))['total']
-#         total_income = 0 if total_income is None else total_income
-#         data_income.append(total_income)
-#
-#     for outcome_type in Outcome.OutcomeTypes.choices:
-#         labels_outcome.append(outcome_type[1])
-#         total_outcome = Outcome.objects \
-#             .filter(user=request.user, date__gte=last_balance.date, type=outcome_type[0], date__lte=today) \
-#             .aggregate(total=Sum('value'))['total']
-#         total_outcome = 0 if total_outcome is None else total_outcome
-#         data_outcome.append(total_outcome)
-#
-#     # context = {
-#     #     'last_balance': last_balance.value,
-#     #     'estimated_balance': last_balance.value + total_income - total_outcome,
-#     #     'total_income': total_income,
-#     #     'total_outcome': total_outcome,
-#     #     'last_balance_savings': last_balance_savings.value,
-#     #     'estimated_balance_savings': last_balance_savings.value + total_income_savings - total_outcome_savings,
-#     #     'total_income_savings': total_income_savings,
-#     #     'total_outcome_savings': total_outcome_savings,
-#     #     'labels': labels_income,
-#     #     'data': data_income,
-#     # }
-#     #
-#     # return render(request, 'myfinpages/current_finances.html', context=context)
-#
-#     return JsonResponse({
-#         'labels_income': labels_income,
-#         'data_income': data_income,
-#         'labels_outcome': labels_outcome,
-#         'data_outcome': data_outcome,
-#     })
-# #
-#
-#
 
 def current_incomes_by_type(request):
     today = date.today()
